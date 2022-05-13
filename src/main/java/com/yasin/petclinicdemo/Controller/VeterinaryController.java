@@ -68,7 +68,7 @@ public class VeterinaryController {
         /*
          * todo
          * delete islemini isim veya soyisim ya da telefon numarasini aldiktan
-         *  sonra id dogrulamasi ile silinecek
+         * sonra id dogrulamasi ile silinecek
          */
         veterinaryService.deleteByName(name);
         return ResponseEntity.ok().build();
