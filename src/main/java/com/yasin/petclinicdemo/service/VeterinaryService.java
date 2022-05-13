@@ -14,7 +14,7 @@ public class VeterinaryService {
 
 
     private final VeterinaryRepo veterinaryRepo;
-    //private VeterinaryConvert veterinaryConvert;
+    private VeterinaryConvert veterinaryConvert;
 
     public VeterinaryService( VeterinaryRepo veterinaryRepo) {
         this.veterinaryRepo = veterinaryRepo;
