@@ -7,16 +7,12 @@ import com.yasin.petclinicdemo.model.Veterinary;
 import com.yasin.petclinicdemo.service.VeterinaryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping(value = "/api/v1/veterinary")
-
 public class VeterinaryController {
 
     private final VeterinaryConvert veterinaryConvert;

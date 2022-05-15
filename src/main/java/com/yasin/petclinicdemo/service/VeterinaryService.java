@@ -5,6 +5,7 @@ import com.yasin.petclinicdemo.dto.convert.VeterinaryConvert;
 import com.yasin.petclinicdemo.exception.NotFoundException;
 import com.yasin.petclinicdemo.model.Veterinary;
 import com.yasin.petclinicdemo.repository.VeterinaryRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +15,11 @@ public class VeterinaryService {
 
 
     private final VeterinaryRepo veterinaryRepo;
-    private VeterinaryConvert veterinaryConvert;
+    private final VeterinaryConvert veterinaryConvert;
 
-    public VeterinaryService( VeterinaryRepo veterinaryRepo) {
+    public VeterinaryService(VeterinaryRepo veterinaryRepo, VeterinaryConvert veterinaryConvert) {
         this.veterinaryRepo = veterinaryRepo;
+        this.veterinaryConvert = veterinaryConvert;
     }
 
     public List<Veterinary> getAll(){

@@ -14,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VeterinaryDto implements Serializable {
+
     private String name;
     private String surname;
     private String phoneNumber;
