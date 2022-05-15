@@ -5,6 +5,7 @@ import com.yasin.petclinicdemo.dto.convert.VeterinaryConvert;
 import com.yasin.petclinicdemo.exception.NotFoundException;
 import com.yasin.petclinicdemo.model.Veterinary;
 import com.yasin.petclinicdemo.service.VeterinaryService;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,16 +59,29 @@ public class VeterinaryController {
 
     }
 
+    @PutMapping("/update")
+    public HttpStatus update(@RequestParam("id") Long id,@RequestBody Veterinary veterinary){
+        veterinaryService.update(id, veterinary);
+        return ResponseEntity.ok().build().getStatusCode();
+
+    }
+
+
     @DeleteMapping(path = "/delete")
-    public ResponseEntity<HttpStatus> deleteByName(@RequestParam("name") String name){
+    public ResponseEntity<?> deleteByName(@RequestParam("name") String name){
         //return ResponseEntity.ok(veterinaryService.getByName(name));
         /*
          * todo
          * delete islemini isim veya soyisim ya da telefon numarasini aldiktan
          * sonra id dogrulamasi ile silinecek
          */
+
+        VeterinaryDto veterinaryDto = veterinaryService.getByName(name);
         veterinaryService.deleteByName(name);
-        return ResponseEntity.ok().build();
+
+
+        return ResponseEntity.ok(veterinaryDto);
+
 
     }
 

@@ -5,12 +5,13 @@ import com.yasin.petclinicdemo.dto.convert.VeterinaryConvert;
 import com.yasin.petclinicdemo.exception.NotFoundException;
 import com.yasin.petclinicdemo.model.Veterinary;
 import com.yasin.petclinicdemo.repository.VeterinaryRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class VeterinaryService {
 
 
@@ -38,8 +39,12 @@ public class VeterinaryService {
         return veterinaryRepo.findAllByName(nameOrSurname);
     }
 
+
     public void deleteByName(String name){
+        //return veterinaryConvert.convertToDto(veterinaryRepo.deleteByName(name));
+
         veterinaryRepo.delete(veterinaryRepo.findByName(name));
+
     }
 
     public void add(Veterinary veterinary){
@@ -47,4 +52,16 @@ public class VeterinaryService {
     }
 
 
+
+    public void update(Long id,Veterinary veterinary){
+        veterinaryRepo.findById(id).map(veterinary1 ->{
+
+            veterinary1.setName(veterinary.getName());
+            veterinary1.setSurname(veterinary.getSurname());
+            veterinary1.setPhoneNumber(veterinary.getPhoneNumber());
+            return veterinaryRepo.save(veterinary1);
+        }).orElseThrow(() -> new NotFoundException("Data not found"));
+
+
+    }
 }
