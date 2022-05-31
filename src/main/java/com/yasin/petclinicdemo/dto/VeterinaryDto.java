@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 
 
 @Builder
@@ -19,8 +20,5 @@ public class VeterinaryDto implements Serializable {
     private String surname;
     private String phoneNumber;
 
-    //Stack<String> stringStack = new Stack<>();
-    //Deque<Integer> stack = new ArrayDeque<Integer>();
-
-
+    
 }

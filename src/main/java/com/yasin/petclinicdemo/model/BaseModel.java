@@ -1,5 +1,6 @@
 package com.yasin.petclinicdemo.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

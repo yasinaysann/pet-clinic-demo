@@ -4,6 +4,7 @@ import com.yasin.petclinicdemo.dto.VeterinaryDto;
 import com.yasin.petclinicdemo.dto.convert.VeterinaryConvert;
 import com.yasin.petclinicdemo.exception.NotFoundException;
 import com.yasin.petclinicdemo.model.Veterinary;
+import com.yasin.petclinicdemo.request.RequestVeterinary;
 import com.yasin.petclinicdemo.service.VeterinaryService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class VeterinaryController {
 
     @GetMapping("/getAll")
     public List<VeterinaryDto> getAll(){
-        return veterinaryConvert.convertToDto(veterinaryService.getAll());
+        return veterinaryService.getAll();
         //return veterinaryService.getAll();
     }
 
@@ -47,9 +48,9 @@ public class VeterinaryController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<Veterinary> add(@RequestBody Veterinary veterinary){
+    public HttpStatus add(@RequestBody RequestVeterinary veterinary){
         veterinaryService.add(veterinary);
-        return ResponseEntity.ok(veterinary);
+        return ResponseEntity.ok().build().getStatusCode();
 //        if (ResponseEntity.ok(veterinary).getStatusCode() == HttpStatus.ACCEPTED){
 //            return ResponseEntity.ok(veterinary).getStatusCode();
 //        }else{
@@ -60,8 +61,8 @@ public class VeterinaryController {
     }
 
     @PutMapping("/update")
-    public HttpStatus update(@RequestParam("id") Long id,@RequestBody Veterinary veterinary){
-        veterinaryService.update(id, veterinary);
+    public HttpStatus update(@RequestParam("id") Long id, @RequestBody RequestVeterinary requestVeterinary){
+        veterinaryService.update(id, requestVeterinary);
         return ResponseEntity.ok().build().getStatusCode();
 
     }

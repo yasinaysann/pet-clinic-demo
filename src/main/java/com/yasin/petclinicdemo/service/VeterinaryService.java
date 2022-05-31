@@ -5,6 +5,7 @@ import com.yasin.petclinicdemo.dto.convert.VeterinaryConvert;
 import com.yasin.petclinicdemo.exception.NotFoundException;
 import com.yasin.petclinicdemo.model.Veterinary;
 import com.yasin.petclinicdemo.repository.VeterinaryRepo;
+import com.yasin.petclinicdemo.request.RequestVeterinary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class VeterinaryService {
+public class VeterinaryService{
 
 
     private final VeterinaryRepo veterinaryRepo;
@@ -23,16 +24,25 @@ public class VeterinaryService {
         this.veterinaryConvert = veterinaryConvert;
     }
 
-    public List<Veterinary> getAll(){
-        return veterinaryRepo.findAll();
-    }
+    public List<VeterinaryDto> getAll(){
 
+        return veterinaryConvert.convertToDto(veterinaryRepo.findAll());
+
+    }
+    /*
+        todo
+        return VeterinaryDto reduce
+     */
     public Veterinary getById(Long id) {
         return veterinaryRepo.findById(id).orElseThrow(()->new NotFoundException("Data Bulunamadi"));
         //return veterinaryRepo.getById(id);
     }
 
     public VeterinaryDto getByName(String nameOrSurname){
+        Veterinary veterinary = veterinaryRepo.findByName(nameOrSurname);
+        if (veterinary == null){
+            throw new NotFoundException("Data bulunamadı !!");
+        }
         return veterinaryConvert.convertToDto(veterinaryRepo.findByName(nameOrSurname));
     }
     public List<Veterinary> getAllByName(String nameOrSurname){
@@ -47,13 +57,24 @@ public class VeterinaryService {
 
     }
 
-    public void add(Veterinary veterinary){
-        veterinaryRepo.save(veterinary);
+    public void add(RequestVeterinary veterinary){
+        /*
+        VeterinaryDto veterinaryDto = VeterinaryDto.builder()
+                .name(veterinary.getName())
+                .surname(veterinary.getSurname())
+                .phoneNumber(veterinary.getPhoneNumber())
+                .build();
+
+         */
+        veterinaryRepo.save(veterinaryConvert.convertToEntity(veterinary));
+
+
+        //veterinaryRepo.save(veterinary);
     }
 
 
 
-    public void update(Long id,Veterinary veterinary){
+    public void update(Long id, RequestVeterinary veterinary){
         veterinaryRepo.findById(id).map(veterinary1 ->{
 
             veterinary1.setName(veterinary.getName());

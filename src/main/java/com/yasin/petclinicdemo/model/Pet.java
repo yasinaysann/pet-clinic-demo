@@ -2,18 +2,25 @@ package com.yasin.petclinicdemo.model;
 
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
 @Entity
 @Table(name = "pets")
 @EqualsAndHashCode
-public class Pet {
+@Getter
+@Setter
+public class Pet implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +33,12 @@ public class Pet {
     private String type;
 
     @Column(name = "birth_date")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Visit> visit = new LinkedHashSet<>();
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Visit> visit = new ArrayList<>();
 
-//    @ManyToOne(cascade = CascadeType.ALL, targetEntity = PetOwner.class, optional = false)
 
 
 }

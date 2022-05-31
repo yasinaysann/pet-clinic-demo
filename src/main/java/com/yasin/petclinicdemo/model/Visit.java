@@ -1,11 +1,10 @@
 package com.yasin.petclinicdemo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -13,16 +12,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Visit {
+@Getter
+@Setter
+public class Visit implements Serializable {
 
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long Id;
 
     @Column(name = "date")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @Column(name = "description")
