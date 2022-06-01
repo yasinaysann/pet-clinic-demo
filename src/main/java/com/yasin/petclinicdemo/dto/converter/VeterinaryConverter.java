@@ -20,16 +20,16 @@ public class VeterinaryConverter {
     }
 
     public List<VeterinaryDto> convertToDto(List<Veterinary> veterinary){
-        List<VeterinaryDto> veterinaryDtoList = veterinary.stream()
+        /**
+         * List<VeterinaryDto> veterinaryDtoList = veterinary.stream()
+         *                 .map(this::convertToDto)
+         *                 .collect(Collectors.toList());
+         *         return veterinaryDtoList;
+         */
+        return veterinary.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
-        return veterinaryDtoList;
-
     }
-
-
-
-
 
 
     public Veterinary convertDtoToEntity(VeterinaryDto veterinaryDto){

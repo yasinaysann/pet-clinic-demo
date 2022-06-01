@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @Getter
 @Setter
+@Builder
 public class Visit implements Serializable {
 
 
@@ -29,4 +30,7 @@ public class Visit implements Serializable {
 
     @Column(name = "description")
     private String description;
+
+
+
 }

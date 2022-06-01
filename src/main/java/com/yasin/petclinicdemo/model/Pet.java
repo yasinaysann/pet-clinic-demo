@@ -1,9 +1,7 @@
 package com.yasin.petclinicdemo.model;
 
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -20,6 +18,9 @@ import java.util.Set;
 @EqualsAndHashCode
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pet implements Serializable {
 
     @Id
@@ -38,6 +39,7 @@ public class Pet implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Visit> visit = new ArrayList<>();
+
 
 
 
