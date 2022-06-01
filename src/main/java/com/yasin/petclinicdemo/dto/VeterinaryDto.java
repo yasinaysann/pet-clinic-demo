@@ -7,9 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 
-
+/**
+ * Request and response operations this make class
+ */
 @Builder
 @Data
 @NoArgsConstructor

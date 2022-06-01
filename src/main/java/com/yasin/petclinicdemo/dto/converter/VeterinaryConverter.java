@@ -1,15 +1,14 @@
-package com.yasin.petclinicdemo.dto.convert;
+package com.yasin.petclinicdemo.dto.converter;
 
 import com.yasin.petclinicdemo.dto.VeterinaryDto;
 import com.yasin.petclinicdemo.model.Veterinary;
-import com.yasin.petclinicdemo.request.RequestVeterinary;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class VeterinaryConvert{
+public class VeterinaryConverter {
 
 
     public VeterinaryDto convertToDto(Veterinary veterinary){
@@ -31,12 +30,15 @@ public class VeterinaryConvert{
 
 
 
-    public Veterinary convertToEntity(RequestVeterinary veterinaryDto){
+
+
+    public Veterinary convertDtoToEntity(VeterinaryDto veterinaryDto){
         Veterinary veterinary = new Veterinary();
         veterinary.setName(veterinaryDto.getName());
         veterinary.setSurname(veterinaryDto.getSurname());
         veterinary.setPhoneNumber(veterinaryDto.getPhoneNumber());
         return veterinary;
+
     }
 
 

@@ -1,12 +1,12 @@
 package com.yasin.petclinicdemo.Controller;
 
 import com.yasin.petclinicdemo.dto.VeterinaryDto;
-import com.yasin.petclinicdemo.dto.convert.VeterinaryConvert;
+import com.yasin.petclinicdemo.dto.converter.VeterinaryConverter;
 import com.yasin.petclinicdemo.exception.NotFoundException;
-import com.yasin.petclinicdemo.model.Veterinary;
-import com.yasin.petclinicdemo.request.RequestVeterinary;
+
+
 import com.yasin.petclinicdemo.service.VeterinaryService;
-import org.springframework.http.HttpEntity;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +17,11 @@ import java.util.List;
 @RequestMapping(value = "/api/v1/veterinary")
 public class VeterinaryController {
 
-    private final VeterinaryConvert veterinaryConvert;
+    private final VeterinaryConverter veterinaryConverter;
     private final VeterinaryService veterinaryService;
 
-    public VeterinaryController(VeterinaryConvert veterinaryConvert, VeterinaryService veterinaryService) {
-        this.veterinaryConvert = veterinaryConvert;
+    public VeterinaryController(VeterinaryConverter veterinaryConverter, VeterinaryService veterinaryService) {
+        this.veterinaryConverter = veterinaryConverter;
         this.veterinaryService = veterinaryService;
     }
 
@@ -38,17 +38,17 @@ public class VeterinaryController {
 //                .orElseThrow(() -> new NotFoundException("Data Bulunamadi")));
 //        return Optional.ofNullable(veterinaryService.getById(id)
 //                .orElseThrow(() -> new NotFoundException("Data Bulunamadi")));
-        return ResponseEntity.ok(veterinaryConvert.convertToDto(veterinaryService.getById(id)));
+        return ResponseEntity.ok(veterinaryConverter.convertToDto(veterinaryService.getById(id)));
     }
 
     @GetMapping(path = "/getName")
     public ResponseEntity<List<VeterinaryDto>> getByName(@RequestParam("name") String name)throws NotFoundException{
-        return ResponseEntity.ok(veterinaryConvert.convertToDto(veterinaryService.getAllByName(name)));
+        return ResponseEntity.ok(veterinaryConverter.convertToDto(veterinaryService.getAllByName(name)));
     }
 
 
     @PostMapping("/add")
-    public HttpStatus add(@RequestBody RequestVeterinary veterinary){
+    public HttpStatus add(@RequestBody VeterinaryDto veterinary){
         veterinaryService.add(veterinary);
         return ResponseEntity.ok().build().getStatusCode();
 //        if (ResponseEntity.ok(veterinary).getStatusCode() == HttpStatus.ACCEPTED){
@@ -61,8 +61,8 @@ public class VeterinaryController {
     }
 
     @PutMapping("/update")
-    public HttpStatus update(@RequestParam("id") Long id, @RequestBody RequestVeterinary requestVeterinary){
-        veterinaryService.update(id, requestVeterinary);
+    public HttpStatus update(@RequestParam("id") Long id, @RequestBody VeterinaryDto veterinaryDto){
+        veterinaryService.update(id, veterinaryDto);
         return ResponseEntity.ok().build().getStatusCode();
 
     }

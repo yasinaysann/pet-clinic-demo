@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-
+@AllArgsConstructor
 public class Veterinary extends BaseModel{
 
 
