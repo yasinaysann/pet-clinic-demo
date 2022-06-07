@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "veterinarys")
-
 @Getter
 @Setter
 @AllArgsConstructor

@@ -27,8 +27,6 @@ public class PetService {
             return true;
         }
         return false;
-
-
     }
 
 
